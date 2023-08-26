@@ -13,6 +13,10 @@ These instructions will get you a copy of the project up and running on your loc
 - Node.js (version 16.20.0)
 - npm (version 8.19.4)
 
+## Demo Link
+
+Access the live site at [Project-Link](https://straitpay-todo.vercel.app)
+
 ## Technologies Used
 
 - React.js
