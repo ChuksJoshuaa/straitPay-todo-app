@@ -9,7 +9,6 @@ chai.use(chaiHttp);
 //Our parent block
 describe("Tasks", () => {
   beforeEach((done) => {
-    //Before each test we empty the database
     Task.remove({}, (err) => {
       done();
     });
