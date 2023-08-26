@@ -39,9 +39,7 @@ export const ContextProvider = ({ children }: ChildrenProps) => {
       let url = `${serverUrl}/api/v1/tasks`;
       const response = await fetch(url);
       const resp = await response.json();
-      let data = resp.data.data;
-      if (resp && data.length > 0)
-        return dispatch({ type: SAVEDATA, payload: resp });
+      if (resp && resp.data) return dispatch({ type: SAVEDATA, payload: resp });
       else dispatch({ type: SAVEDATA, payload: {} as IProps });
     } catch (error) {
       console.log(error);
@@ -52,7 +50,7 @@ export const ContextProvider = ({ children }: ChildrenProps) => {
 
   useEffect(() => {
     getFetchData();
-  }, []);
+  }, [state.newData]);
 
   useEffect(() => {
     checkWidth();

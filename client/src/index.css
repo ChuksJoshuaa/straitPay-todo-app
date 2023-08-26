@@ -40,3 +40,17 @@ a {
   margin: 0 auto;
   width: 90%;
 }
+
+.layout {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-gap: 10px;
+}
+
+.input {
+  border: 1px solid #ccc;
+}
+
+.input-invalid {
+  border: 1px solid #e74c3c;
+}

@@ -1,4 +1,5 @@
 import {
+  ADDDATA,
   LOADING,
   OPENSIDEBAR,
   SAVEDATA,
@@ -14,5 +15,6 @@ export const ContextReducers = (state: InitialProps, action: AppAction) => {
   if (action.type === OPENSIDEBAR)
     return { ...state, isSidebarOpen: action.payload };
   if (action.type === SAVEDATA) return { ...state, result: action.payload };
+  if (action.type === ADDDATA) return { ...state, newData: action.payload };
   return { ...state };
 };
