@@ -3,14 +3,24 @@ import { NavProfile } from ".";
 import searchSvg from "../assets/search.svg";
 import toggleSvg from "../assets/toggle.svg";
 import MyContext from "../contexts";
-import { OPENSIDEBAR } from "../constants/actionTypes";
+import { OPENSIDEBAR, SEARCHDATA, SEARCHTERM } from "../constants/actionTypes";
+import { ResultProps } from "../interface";
 
 const Navbar = () => {
   const { state, dispatch } = useContext(MyContext);
   const [value, setValue] = useState("");
 
   const handleChange = () => {
-    console.log(value);
+    if (!value) {
+      dispatch({ type: SEARCHDATA, payload: state.result.data });
+    } else {
+      let searchResult = new RegExp(`${value}`, "gi");
+      const newSearchData = state.result.data.filter((item: ResultProps) =>
+        item.title.match(searchResult)
+      );
+      dispatch({ type: SEARCHDATA, payload: newSearchData });
+      dispatch({ type: SEARCHTERM, payload: value });
+    }
   };
 
   const openSidebar = () => dispatch({ type: OPENSIDEBAR, payload: true });

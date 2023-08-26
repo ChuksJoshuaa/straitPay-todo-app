@@ -5,5 +5,7 @@ export const initialState: InitialProps = {
   screenSize: null,
   isSidebarOpen: false,
   result: {} as IProps,
+  searchData: [] as Array<ResultProps>,
   newData: {} as ResultProps,
+  searchTerm: "",
 };

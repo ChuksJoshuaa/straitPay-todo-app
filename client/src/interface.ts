@@ -3,6 +3,8 @@ import {
   LOADING,
   OPENSIDEBAR,
   SAVEDATA,
+  SEARCHDATA,
+  SEARCHTERM,
   SETSCREEN,
 } from "./constants/actionTypes";
 
@@ -24,7 +26,9 @@ export interface InitialProps {
   screenSize: number | null;
   isSidebarOpen: boolean;
   result: IProps;
+  searchData: Array<ResultProps>;
   newData: ResultProps;
+  searchTerm: string;
 }
 
 export type ChildrenProps = {
@@ -36,7 +40,9 @@ export type AppAction =
   | { type: typeof OPENSIDEBAR; payload: boolean }
   | { type: typeof SETSCREEN; payload: number }
   | { type: typeof SAVEDATA; payload: IProps }
-  | { type: typeof ADDDATA; payload: ResultProps };
+  | { type: typeof ADDDATA; payload: ResultProps }
+  | { type: typeof SEARCHTERM; payload: string }
+  | { type: typeof SEARCHDATA; payload: Array<ResultProps> };
 
 export interface FormProps {
   title: string;

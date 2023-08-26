@@ -1,38 +1,34 @@
 import { useContext } from "react";
 import MyContext from "../contexts";
-import moment from "moment";
-import { BiTime } from "react-icons/bi";
+
+import { Loader, Task } from ".";
+
+const NoTasksMessage = ({ searchTerm }: { searchTerm: string }) => (
+  <div className="text-gray-800 text-center text-lg">
+    {searchTerm
+      ? `No tasks found for "${searchTerm}"`
+      : "You currently have no tasks. Create your first task"}
+  </div>
+);
 
 const TaskList = () => {
   const { state } = useContext(MyContext);
 
+  if (state.loading) return <Loader />;
+
+  if (state.searchData.length === 0)
+    return <NoTasksMessage searchTerm={state.searchTerm} />;
+
   return (
-    <div className={`my-2 ${!state.isSidebarOpen ? "mx-6" : "mx-1"}`}>
-      <div
-        className={`task__container ${
-          !state.isSidebarOpen ? "ml-[1em]" : "ml-0"
-        }`}
-      >
-        {state?.result?.data?.map((val, i: number) => (
-          <div
-            key={i}
-            className="w-full h-auto sm:h-[120px] border-2 border-gray-100 shadow-lg mb-5 py-1 px-2"
-          >
-            <h2 className="text-blue-900 py-1 text-lg font-bold capitalize">
-              Title: {val?.title}
-            </h2>
-
-            <h2 className="text-gray-700 pb-2 text-md font-normal">
-              Description: {val?.description}
-            </h2>
-
-            <div className="flex items-center justify-start text-red-400">
-              <span>
-                <BiTime className="text-xl" />
-              </span>
-              <span className="mx-1">{moment(val?.createdAt).fromNow()}</span>
-            </div>
-          </div>
+    <div
+      className={`my-2 ${!state.isSidebarOpen ? "mx-6 ml-[1em]" : "mx-1 ml-0"}`}
+    >
+      <h3 className="pb-3 text-left text-lg font-bold capitalize">
+        All Tasks ({state?.searchData.length})
+      </h3>
+      <div className="task__container">
+        {state?.searchData?.map((task, i) => (
+          <Task key={i} task={task} />
         ))}
       </div>
     </div>
