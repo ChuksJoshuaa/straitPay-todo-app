@@ -1,5 +1,7 @@
 # Task To-Do List Application
 
+<img src="https://res.cloudinary.com/chuksmbanaso/image/upload/v1693076405/Screenshot_2023-08-26_at_19.57.50_di4awe.png" title="Image" alt="image">
+
 This project is a task To-Do List application built with React and Express. It allows users to create, update, and delete tasks.
 
 ## Getting Started
