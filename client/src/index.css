@@ -54,3 +54,15 @@ a {
 .input-invalid {
   border: 1px solid #e74c3c;
 }
+
+.task__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+@media screen and (max-width: 972px) {
+  .task__container {
+    grid-template-columns: 1fr;
+  }
+}

@@ -85,6 +85,7 @@ const TaskInput = () => {
         let data = result?.data;
         dispatch({ type: ADDDATA, payload: data });
         SuccessPopup("Success! Your task has been created.");
+        emptyField();
       } else {
         ErrorPopup("Sorry, an error occurred");
       }
@@ -102,7 +103,7 @@ const TaskInput = () => {
       id="form__container"
       data-testid="form__container"
     >
-      <div className="bg-white shadow-md rounded px-8 pt-2 pb-8 mb-4 flex flex-col my-2">
+      <div className="bg-white shadow-md rounded px-8 pt-2 pb-2 mb-4 flex flex-col my-2">
         <h3 className="py-3 text-center text-lg font-bold capitalize">
           Add task
         </h3>
