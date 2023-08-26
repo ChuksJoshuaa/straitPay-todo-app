@@ -8,4 +8,5 @@ export const initialState: InitialProps = {
   searchData: [] as Array<ResultProps>,
   newData: {} as ResultProps,
   searchTerm: "",
+  taskId: "",
 };

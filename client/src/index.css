@@ -61,8 +61,18 @@ a {
   grid-gap: 10px;
 }
 
-@media screen and (max-width: 972px) {
+@media screen and (max-width: 1252px) {
   .task__container {
+    grid-template-columns: 1fr;
+  }
+
+  .layout {
+    grid-template-columns: 40% 60%;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .layout {
     grid-template-columns: 1fr;
   }
 }

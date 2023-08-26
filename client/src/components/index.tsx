@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import NavProfile from "./NavProfile";
 import Loader from "./Loader";
 import Task from "./Task";
+import TaskButton from "./TaskButton";
 
 export {
   Layout,
@@ -16,4 +17,5 @@ export {
   NavProfile,
   Loader,
   Task,
+  TaskButton,
 };

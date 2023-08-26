@@ -5,6 +5,7 @@ import {
   SAVEDATA,
   SEARCHDATA,
   SEARCHTERM,
+  SETID,
   SETSCREEN,
 } from "./constants/actionTypes";
 
@@ -29,6 +30,7 @@ export interface InitialProps {
   searchData: Array<ResultProps>;
   newData: ResultProps;
   searchTerm: string;
+  taskId: string;
 }
 
 export type ChildrenProps = {
@@ -42,6 +44,7 @@ export type AppAction =
   | { type: typeof SAVEDATA; payload: IProps }
   | { type: typeof ADDDATA; payload: ResultProps }
   | { type: typeof SEARCHTERM; payload: string }
+  | { type: typeof SETID; payload: string }
   | { type: typeof SEARCHDATA; payload: Array<ResultProps> };
 
 export interface FormProps {

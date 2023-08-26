@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FormProps } from "../interface";
 import { isEmptyString } from "../utils/validate";
 import { ErrorPopup, SuccessPopup } from "../utils/notification";
 import { serverUrl } from "../routes";
 import MyContext from "../contexts";
-import { ADDDATA } from "../constants/actionTypes";
+import { ADDDATA, SETID } from "../constants/actionTypes";
 
 const initialState: FormProps = {
   title: "",
@@ -16,7 +16,7 @@ const TaskInput = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState(initialState);
   const fieldsToValidate = ["title", "description"];
-  const { dispatch } = useContext(MyContext);
+  const { dispatch, state } = useContext(MyContext);
 
   const handleEnterKeyPress = (e: React.KeyboardEvent) => {
     e.preventDefault();
@@ -42,6 +42,7 @@ const TaskInput = () => {
   const emptyField = () => {
     setErrors(initialState);
     setFormData(initialState);
+    dispatch({ type: SETID, payload: "" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -72,23 +73,26 @@ const TaskInput = () => {
     }
     setIsSubmitting(true);
     try {
-      let createUrl = `${serverUrl}/api/v1/tasks/create`;
-      const response = await fetch(createUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const isUpdate = !isEmptyString(state.taskId);
+      const url = `${serverUrl}/api/v1/tasks/${
+        isUpdate ? `update/${state.taskId}` : "create"
+      }`;
+      const method = isUpdate ? "PATCH" : "POST";
+      const successMessage = `Success! Your task has been ${
+        isUpdate ? "updated" : "created"
+      }.`;
+
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (response.ok) {
-        const result = await response.json();
-        let data = result?.data;
-        dispatch({ type: ADDDATA, payload: data });
-        SuccessPopup("Success! Your task has been created.");
-        emptyField();
-      } else {
-        ErrorPopup("Sorry, an error occurred");
-      }
+
+      if (!response.ok) ErrorPopup("Sorry, an error occurred");
+      const { data } = await response.json();
+      dispatch({ type: ADDDATA, payload: data });
+      SuccessPopup(successMessage);
+      emptyField();
     } catch (error) {
       ErrorPopup("Sorry, an error occurred");
       console.log(error);
@@ -96,6 +100,23 @@ const TaskInput = () => {
       setIsSubmitting(false);
     }
   };
+
+  const getTask = () => {
+    let value = state.searchData.find((val) => val._id === state.taskId);
+    if (value) {
+      let title = value?.title;
+      let description = value?.description;
+      let i = {
+        title: title,
+        description: description,
+      };
+      setFormData(i);
+    }
+  };
+
+  useEffect(() => {
+    getTask();
+  }, [state.taskId]);
 
   return (
     <div
@@ -105,7 +126,7 @@ const TaskInput = () => {
     >
       <div className="bg-white shadow-md rounded px-8 pt-2 pb-2 mb-4 flex flex-col my-2">
         <h3 className="py-3 text-center text-lg font-bold capitalize">
-          Add task
+          {isEmptyString(state.taskId) ? "Add task" : "Edit task"}
         </h3>
         <div className="-mx-3 flex flex-col mb-6">
           <div className="mb-6 md:mb-3">
@@ -179,7 +200,7 @@ const TaskInput = () => {
                   </svg>
                 </div>
               )}
-              Submit
+              {isEmptyString(state.taskId) ? "Submit" : "Update"}
             </button>
           </div>
         </div>

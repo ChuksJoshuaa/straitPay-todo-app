@@ -5,6 +5,7 @@ import {
   SAVEDATA,
   SEARCHDATA,
   SEARCHTERM,
+  SETID,
   SETSCREEN,
 } from "../constants/actionTypes";
 import { AppAction, InitialProps } from "../interface";
@@ -20,6 +21,7 @@ export const ContextReducers = (state: InitialProps, action: AppAction) => {
     return { ...state, searchData: action.payload };
   if (action.type === SEARCHTERM)
     return { ...state, searchTerm: action.payload };
+  if (action.type === SETID) return { ...state, taskId: action.payload };
   if (action.type === SAVEDATA)
     return {
       ...state,

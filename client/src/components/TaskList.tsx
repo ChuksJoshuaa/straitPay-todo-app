@@ -6,7 +6,7 @@ import { Loader, Task } from ".";
 const NoTasksMessage = ({ searchTerm }: { searchTerm: string }) => (
   <div className="text-gray-800 text-center text-lg">
     {searchTerm
-      ? `No tasks found for "${searchTerm}"`
+      ? `Oops! We couldn't find any tasks matching the keyword '${searchTerm}'`
       : "You currently have no tasks. Create your first task"}
   </div>
 );
