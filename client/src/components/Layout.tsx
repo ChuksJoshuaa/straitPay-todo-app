@@ -5,7 +5,7 @@ import MyContext from "../contexts";
 const Layout = ({ children }: ChildrenProps) => {
   const { state } = useContext(MyContext);
   return (
-    <div className="main-container">
+    <div className="main-container" style={{ minHeight: "100vh" }}>
       <div
         className={`layout mt-5 pt-5 ${!state.isSidebarOpen ? "mx-6" : "mx-1"}`}
       >
