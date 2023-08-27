@@ -13,13 +13,11 @@ const TaskButton = ({ id }: { id: string }) => {
 
   const deleteBtn = async (val: string) => {
     try {
-      const response = await fetch(`${serverUrl}/api/v1/tasks/${val}`, {
+      await fetch(`${serverUrl}/api/v1/tasks/${val}`, {
         method: "DELETE",
       });
-      if (response.ok && response.statusText === "OK") {
-        SuccessPopup("Success, Task deleted");
-        dispatch({ type: ADDDATA, payload: {} as ResultProps });
-      } else ErrorPopup("Sorry, an error occurred");
+      SuccessPopup("Success, Task deleted");
+      dispatch({ type: ADDDATA, payload: {} as ResultProps });
     } catch (error) {
       ErrorPopup("Sorry, an error occurred");
       console.log(error);
